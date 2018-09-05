@@ -25,29 +25,7 @@ namespace Chapter6.ViewModel
                 RaisePropertyChangedEvent("TextAnalysisVm");
             }
         }
-
-        private LinguisticViewModel _linguisticVm;
-        public LinguisticViewModel LinguisticVm
-        {
-            get { return _linguisticVm; }
-            set
-            {
-                _linguisticVm = value;
-                RaisePropertyChangedEvent("LinguisticVm");
-            }
-        }
-
-        private WebLmViewModel _webLmVm;
-        public WebLmViewModel WebLmVm
-        {
-            get { return _webLmVm; }
-            set
-            {
-                _webLmVm = value;
-                RaisePropertyChangedEvent("WebLmVm");
-            }
-        }
-
+        
         /// <summary>
         /// MainViewModel constructor creates all other view model objects
         /// </summary>
@@ -55,8 +33,6 @@ namespace Chapter6.ViewModel
         {
             SpellCheckVm = new SpellCheckViewModel();
             TextAnalysisVm = new TextAnalysisViewModel();
-            LinguisticVm = new LinguisticViewModel();
-            WebLmVm = new WebLmViewModel();
         }
     }
 }

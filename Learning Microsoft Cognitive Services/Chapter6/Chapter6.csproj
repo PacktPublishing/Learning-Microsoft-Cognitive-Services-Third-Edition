@@ -38,8 +38,8 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -63,22 +63,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Contracts\LinguisticRequest.cs" />
-    <Compile Include="Contracts\LinguisticResponse.cs" />
     <Compile Include="Contracts\SpellCheckResponse.cs" />
     <Compile Include="Contracts\TextResponse.cs" />
     <Compile Include="Contracts\TextRequests.cs" />
-    <Compile Include="Contracts\WebLmRequest.cs" />
-    <Compile Include="Contracts\WebLmResponse.cs" />
     <Compile Include="Model\WebRequest.cs" />
-    <Compile Include="ViewModel\LinguisticViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\SpellCheckViewModel.cs" />
     <Compile Include="ViewModel\TextAnalysisViewModel.cs" />
-    <Compile Include="ViewModel\WebLmViewModel.cs" />
-    <Compile Include="View\LinguisticView.xaml.cs">
-      <DependentUpon>LinguisticView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
@@ -94,13 +85,6 @@
     <Compile Include="View\TextAnalysisView.xaml.cs">
       <DependentUpon>TextAnalysisView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\WebLmView.xaml.cs">
-      <DependentUpon>WebLmView.xaml</DependentUpon>
-    </Compile>
-    <Page Include="View\LinguisticView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="View\MainView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -110,10 +94,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\TextAnalysisView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\WebLmView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

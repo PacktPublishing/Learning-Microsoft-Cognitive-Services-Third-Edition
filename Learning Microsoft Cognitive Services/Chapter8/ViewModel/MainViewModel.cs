@@ -79,8 +79,8 @@ namespace Chapter8.ViewModel
         /// </summary>
         public MainViewModel()
         {
-            Endpoint = "https://api.projectoxford.ai/academic/v1.0/";
-            _webRequest = new WebRequest(Endpoint, "API_KEY_HERE");
+            Endpoint = "https://api.labs.cognitive.microsoft.com/academic/v1.0/";
+            _webRequest = new WebRequest(Endpoint, "API_KEY");
 
             InterpretCommand = new DelegateCommand(Interpret, CanInterpret);
             EvaluateCommand = new DelegateCommand(Evaluate, CanExecuteCommands);

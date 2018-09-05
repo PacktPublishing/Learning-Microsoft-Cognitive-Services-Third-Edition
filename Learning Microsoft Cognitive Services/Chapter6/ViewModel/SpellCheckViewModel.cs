@@ -63,7 +63,7 @@ namespace Chapter6.ViewModel
         /// </summary>
         public SpellCheckViewModel()
         {
-            _webRequest = new WebRequest("https://api.cognitive.microsoft.com/bing/v5.0/spellcheck/?", "API_KEY_HERE");
+            _webRequest = new WebRequest("ROOT_URI", "API_KEY");
             ExecuteOperationCommand = new DelegateCommand(ExecuteOperation, CanExecuteOperation);
         }
 

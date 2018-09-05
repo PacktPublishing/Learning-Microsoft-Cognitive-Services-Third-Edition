@@ -44,7 +44,7 @@ namespace Chapter6.ViewModel
         /// </summary>
         public TextAnalysisViewModel()
         {
-            _webRequest = new WebRequest("https://westus.api.cognitive.microsoft.com/text/analytics/v2.0/", "API_KEY_HERE");
+            _webRequest = new WebRequest("ROOT_URI", "API_KEY");
             DetectLanguageCommand = new DelegateCommand(DetectLanguage, CanExecuteOperation);
             DetectKeyPhrasesCommand = new DelegateCommand(DetectKeyPhrases, CanExecuteOperation);
             DetectSentimentCommand = new DelegateCommand(DetectSentiment, CanExecuteOperation);

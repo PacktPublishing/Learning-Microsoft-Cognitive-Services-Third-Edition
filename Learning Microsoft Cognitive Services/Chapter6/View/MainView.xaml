@@ -18,12 +18,6 @@
             <TabItem Header="Text analysis" Width="120">
                 <local:TextAnalysisView />
             </TabItem>
-            <TabItem Header="Linguistic analysis" Width="120">
-                <local:LinguisticView />
-            </TabItem>
-            <TabItem Header="Web LM" Width="120">
-                <local:WebLmView />
-            </TabItem>
         </TabControl>
     </Grid> 
 </Window>
