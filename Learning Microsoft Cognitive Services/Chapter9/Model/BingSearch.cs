@@ -24,7 +24,7 @@ namespace Chapter9.Model
         /// <returns>The <see cref="ImageSearchResponse"/>, containing image details</returns>
         public async Task<ImageSearchResponse> SearchImages(string query)
         {
-            string endpoint = string.Format("{0}{1}", "https://api.cognitive.microsoft.com/bing/v5.0/images/search?q=", query);
+            string endpoint = string.Format("{0}{1}", "https://api.cognitive.microsoft.com/bing/v7.0/images/search?q=", query);
 
             try
             {
@@ -47,7 +47,7 @@ namespace Chapter9.Model
         /// <returns>The <see cref="VideoSearchResponse"/>, containing video details</returns>
         public async Task<VideoSearchResponse> SearchVideos(string query)
         {
-            string endpoint = string.Format("{0}{1}", "https://api.cognitive.microsoft.com/bing/v5.0/videos/search?q=", query);
+            string endpoint = string.Format("{0}{1}", "https://api.cognitive.microsoft.com/bing/v7.0/videos/search?q=", query);
 
             try
             {

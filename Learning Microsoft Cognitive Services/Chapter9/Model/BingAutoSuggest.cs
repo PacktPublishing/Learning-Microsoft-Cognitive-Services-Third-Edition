@@ -25,7 +25,7 @@ namespace Chapter9.Model
         /// <returns>List of suggested words</returns>
         public async Task<List<string>> Suggest(string query)
         {
-            string endpoint = string.Format("{0}{1}&mkt=en-US", "https://api.cognitive.microsoft.com/bing/v5.0/suggestions/?q=", query);
+            string endpoint = string.Format("{0}{1}&mkt=en-US", "https://api.cognitive.microsoft.com/bing/v7.0/suggestions/?q=", query);
 
             List<string> suggestionResult = new List<string>();
 
