@@ -24,7 +24,7 @@ namespace End_to_End.Model
         /// <param name="bingApiKey">Bing Speech API key</param>
         public SpeechToText(string bingApiKey)
         {
-            _dataRecClient = SpeechRecognitionServiceFactory.CreateDataClientWithIntent(_language, bingApiKey, "LUIS_APP_ID", "LUIS_API_KEY");
+            _dataRecClient = SpeechRecognitionServiceFactory.CreateDataClientWithIntentUsingEndpointUrl(_language, bingApiKey, "LUIS_ENDPOINT");
             _micRecClient = SpeechRecognitionServiceFactory.CreateMicrophoneClient(_speechMode, _language, bingApiKey);
 
             Initialize();

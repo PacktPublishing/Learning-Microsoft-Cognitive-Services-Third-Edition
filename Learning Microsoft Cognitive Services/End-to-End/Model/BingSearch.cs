@@ -24,7 +24,7 @@ namespace End_to_End.Model
         /// <returns><see cref="BingNewsResponse"/> object with the latest news in the given category</returns>
         public async Task<BingNewsResponse> SearchNewsCategory(string query)
         {
-            string endpoint = string.Format("{0}{1}&mkt=en-US", "https://api.cognitive.microsoft.com/bing/v5.0/news?category=", query);
+            string endpoint = string.Format("{0}{1}&mkt=en-US", "https://api.cognitive.microsoft.com/bing/v7.0/news?category=", query);
 
             try
             {
@@ -48,7 +48,7 @@ namespace End_to_End.Model
         /// <returns><see cref="BingNewsResponse"/> object containing the 5 latests news</returns>
         public async Task<BingNewsResponse> SearchNews(string query, SafeSearch safeSearch)
         {
-            string endpoint = string.Format("{0}{1}&safeSearch={2}&count=5&mkt=en-US", "https://api.cognitive.microsoft.com/bing/v5.0/news/search?q=", query, safeSearch.ToString());
+            string endpoint = string.Format("{0}{1}&safeSearch={2}&count=5&mkt=en-US", "https://api.cognitive.microsoft.com/bing/v7.0/news/search?q=", query, safeSearch.ToString());
 
             try
             {
@@ -72,7 +72,7 @@ namespace End_to_End.Model
         /// <returns><see cref="WebSearchResponse"/> object containing 5 search results</returns>
         public async Task<WebSearchResponse> SearchWeb(string query, SafeSearch safeSearch)
         {
-            string endpoint = string.Format("{0}{1}&safeSearch={2}&count=5&mkt=en-US", "https://api.cognitive.microsoft.com/bing/v5.0/search?q=", query, safeSearch.ToString());
+            string endpoint = string.Format("{0}{1}&safeSearch={2}&count=5&mkt=en-US", "https://api.cognitive.microsoft.com/bing/v7.0/search?q=", query, safeSearch.ToString());
 
             try
             {

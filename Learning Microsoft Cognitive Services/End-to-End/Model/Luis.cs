@@ -66,8 +66,8 @@ namespace End_to_End.Model
         {
             LuisUtteranceResultEventArgs args = new LuisUtteranceResultEventArgs();
 
-            args.RequiresReply = !string.IsNullOrEmpty(result.DialogResponse.Prompt);
-            args.DialogResponse = !string.IsNullOrEmpty(result.DialogResponse.Prompt) ? result.DialogResponse.Prompt : string.Empty;
+            args.RequiresReply = !string.IsNullOrEmpty(result.DialogResponse?.Prompt);
+            args.DialogResponse = !string.IsNullOrEmpty(result.DialogResponse?.Prompt) ? result.DialogResponse.Prompt : string.Empty;
 
             if (!string.IsNullOrEmpty(result.TopScoringIntent.Name))
             {
