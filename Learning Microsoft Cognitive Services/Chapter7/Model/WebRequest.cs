@@ -1,6 +1,8 @@
-﻿using Newtonsoft.Json;
+﻿using Chapter7.Contracts;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
 using System.Text;
@@ -33,27 +35,21 @@ namespace Chapter7.Model
             _endpoint = uri;
             
             _httpClient = new HttpClient();
-            _httpClient.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", apiKey);
+            _httpClient.DefaultRequestHeaders.Add("x-api-key", apiKey);
         }
 
         /// <summary>
-        /// Function to make a web request
+        /// Function to make a request to recommend items
         /// </summary>
-        /// <typeparam name="TRequest">If any request body is required, it's object type should be specified</typeparam>
-        /// <typeparam name="TResponse">The response is expected to be deserialized into this object type</typeparam>
         /// <param name="method">The <see cref="HttpMethod"/> to be used</param>
         /// <param name="queryString">The query string</param>
-        /// <param name="requestBody">Request body, not required</param>
-        /// <returns>Returns a deserialized object, specified in TResponse</returns>
-        public async Task<TResponse> MakeRequest<TRequest, TResponse>(HttpMethod method, string queryString, TRequest requestBody = default(TRequest))
+        /// <returns>Returns a list of recommended items</returns>
+        public async Task<List<RecommendedItem>> RecommendItem(HttpMethod method, string queryString)
         {
             try
             {
                 string url = $"{_endpoint}{queryString}";
                 var request = new HttpRequestMessage(method, url);
-
-                if (requestBody != null)
-                    request.Content = new StringContent(JsonConvert.SerializeObject(requestBody, _settings), Encoding.UTF8, JsonContentTypeHeader);
 
                 HttpResponseMessage response = await _httpClient.SendAsync(request);
 
@@ -63,11 +59,11 @@ namespace Chapter7.Model
 
                     if (response.Content != null)
                         responseContent = await response.Content.ReadAsStringAsync();
-                    
-                    if (!string.IsNullOrWhiteSpace(responseContent))
-                        return JsonConvert.DeserializeObject<TResponse>(responseContent, _settings);
 
-                    return default(TResponse);
+                    if (!string.IsNullOrWhiteSpace(responseContent))
+                        return JsonConvert.DeserializeObject<List<RecommendedItem>>(responseContent, _settings);
+
+                    return new List<RecommendedItem>();
                 }
                 else
                 {
@@ -83,8 +79,49 @@ namespace Chapter7.Model
                 Debug.WriteLine(ex.Message);
             }
 
-            return default(TResponse);
+            return new List<RecommendedItem>();
+        }
 
+        /// <summary>
+        /// Function to make a request to get a list of recommendation models
+        /// </summary>
+        /// <param name="method">The <see cref="HttpMethod"/> to be used</param>
+        /// <returns>Returns a list of recommendation models</returns>
+        public async Task<List<RecommandationModel>> GetModels(HttpMethod method)
+        {
+            try
+            {
+                var request = new HttpRequestMessage(method, _endpoint);
+                
+                HttpResponseMessage response = await _httpClient.SendAsync(request);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    string responseContent = null;
+
+                    if (response.Content != null)
+                        responseContent = await response.Content.ReadAsStringAsync();
+
+                    if (!string.IsNullOrWhiteSpace(responseContent))
+                        return JsonConvert.DeserializeObject<List<RecommandationModel>>(responseContent, _settings);
+
+                    return new List<RecommandationModel>();
+                }
+                else
+                {
+                    if (response.Content != null && response.Content.Headers.ContentType.MediaType.Contains(JsonContentTypeHeader))
+                    {
+                        var errorObjectString = await response.Content.ReadAsStringAsync();
+                        Debug.WriteLine(errorObjectString);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+
+            return new List<RecommandationModel>();
         }
     }
 }

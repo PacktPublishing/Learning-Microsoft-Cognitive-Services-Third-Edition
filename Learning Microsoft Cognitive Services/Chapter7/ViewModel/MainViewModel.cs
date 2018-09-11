@@ -9,8 +9,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Diagnostics;
 using System.IO;
-using System.Web;
 using System.Text;
+using System.Collections.Generic;
 
 namespace Chapter7.ViewModel
 {
@@ -80,7 +80,7 @@ namespace Chapter7.ViewModel
         /// </summary>
         public MainViewModel()
         {
-            _webRequest = new WebRequest("https://westus.api.cognitive.microsoft.com/recommendations/v4.0/models/", "API_KEY_HERE");
+            _webRequest = new WebRequest("https://<YOUR_WEB_SERVICE>.azurewebsites.net/api/models/", "API_KEY_HERE");
             RecommendCommand = new DelegateCommand(RecommendProduct, CanRecommendBook);
 
             Initialize();
@@ -96,14 +96,14 @@ namespace Chapter7.ViewModel
         }
 
         /// <summary>
-        /// Funciton to call the Recommendation API to retrieve all available <see cref="RecommandationModels"/>
+        /// Funciton to call the Recommendation API to retrieve all available <see cref="RecommandationModel"/>
         /// </summary>
         /// <returns></returns>
         private async Task GetModels()
         {
-            RecommandationModels models = await _webRequest.MakeRequest<object, RecommandationModels>(HttpMethod.Get, string.Empty);
+            List<RecommandationModel> models = await _webRequest.GetModels(HttpMethod.Get);
 
-            foreach (RecommandationModel model in models.models)
+            foreach (RecommandationModel model in models)
             {
                 AvailableModels.Add(model);
             }
@@ -154,17 +154,9 @@ namespace Chapter7.ViewModel
         /// <param name="obj"></param>
         private async void RecommendProduct(object obj)
         {
-            var queryString = HttpUtility.ParseQueryString(string.Empty);
-            
-            queryString["itemIds"] = SelectedProduct.Id;
-            queryString["numberOfResults"] = "10";
-            queryString["minimalScore"] = "0";
-            // queryString["includeMetadata"] = "";
-            // queryString["buildId"] = "";
+            List<RecommendedItem> recommendations = await _webRequest.RecommendItem(HttpMethod.Get, $"{SelectedModel.id}/recommend?itemid={SelectedProduct.Id}");
 
-            Recommendations recommendations = await _webRequest.MakeRequest<object, Recommendations>(HttpMethod.Get, $"{SelectedModel.id}/recommend/item?{queryString.ToString()}");
-
-            if(recommendations.recommendedItems.Length == 0)
+            if(recommendations.Count == 0)
             {
                 Recommendations = "No recommendations found";
                 return;
@@ -173,19 +165,10 @@ namespace Chapter7.ViewModel
             StringBuilder sb = new StringBuilder();
             sb.Append("Recommended items:\n\n");
 
-            foreach(Recommendeditem recommendedItem in recommendations.recommendedItems)
+            foreach(RecommendedItem recommendedItem in recommendations)
             {
-                sb.AppendFormat("Score: {0}\n", recommendedItem.rating);
-
-                foreach(string reason in recommendedItem.reasoning)
-                {
-                    sb.AppendFormat("Reason: {0}\n", reason);
-                }
-
-                foreach(Item item in recommendedItem.items)
-                {
-                    sb.AppendFormat("Item ID: {0}\nItem Name: {1}\n", item.id, item.name);
-                }
+                sb.AppendFormat("Score: {0}\n", recommendedItem.score);
+                sb.AppendFormat("Item ID: {0}\n", recommendedItem.recommendedItemId);
 
                 sb.Append("\n");
             }
