@@ -18,9 +18,6 @@
             <TabItem Header="LUIS" Width="100">
                 <local:LuisView />
             </TabItem>
-            <TabItem Header="Entity Linking" Width="100">
-                <local:EntityLinkingView />
-            </TabItem>
             <TabItem Header="Bing Search" Width="100">
                 <local:BingSearchView />
             </TabItem>

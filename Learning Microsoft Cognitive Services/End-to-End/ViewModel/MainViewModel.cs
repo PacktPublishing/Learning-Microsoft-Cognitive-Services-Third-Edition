@@ -44,17 +44,6 @@ namespace End_to_End.ViewModel
             }
         }
 
-        private EntityLinkingViewModel _entityLinkingVm;
-        public EntityLinkingViewModel EntityLinkingVm
-        {
-            get { return _entityLinkingVm; }
-            set
-            {
-                _entityLinkingVm = value;
-                RaisePropertyChangedEvent("EntityLinkingVm");
-            }
-        }
-
         private BingSearchViewModel _bingSearchVm;  
         public BingSearchViewModel BingSearchVm
         {
@@ -87,8 +76,6 @@ namespace End_to_End.ViewModel
             HomeVm = new HomeViewModel(_faceServiceClient, _speakerIdentificationClient);
             LuisVm = new LuisViewModel();
             BingSearchVm = new BingSearchViewModel();
-
-            EntityLinkingVm = new EntityLinkingViewModel();
         }
 
         public void Dispose()
